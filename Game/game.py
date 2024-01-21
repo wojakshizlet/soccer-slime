@@ -1,4 +1,5 @@
 import pygame
+import math
 
 class drawRectangle:
     def __init__(self, screen, colour, x, y, width, height, text, text_colour, fontsize):
@@ -31,16 +32,20 @@ class drawRectangle:
 
 
 class soccerSlimeGame():
-    def __init__(self):
+    def __init__(self, player1Score, player2Score):
+        self.player1Score = 0
+        self.player2Score = 0
+
+        
+    def renderGraphics(self):
+        # Game loop starts here
         pygame.init()
         screen = pygame.display.set_mode((800, 430))  
         pygame.display.set_caption("Soccer Slime")
-        # font = pygame.font.Font("freesansbold.ttf", 18)
+        font = pygame.font.Font("freesansbold.ttf", 18)
         height = screen.get_height()
         width = screen.get_width()
-
-
-    # Game loop starts here
+        
         running = True
         while running:
             for event in pygame.event.get():
@@ -48,11 +53,20 @@ class soccerSlimeGame():
                     running = False
                     pygame.quit()
 
-            screen.fill("blue")
-            ground = drawRectangle(screen, "#808080", 0, height - 100, 800, 100, " ", "gray", 16)
-            ground.draw()
-            pygame.display.update()
+                screen.fill("blue")
+            
+                ground = drawRectangle(screen, "#808080", 0, height - 100, 800, 100, " ", "gray", 16)
+                ground.draw()
+
+                radius = 50
+                
+                #center = (width // 2, height // 2)
+                #pygame.draw.arc(surface, color, rect, start_angle, stop_angle, width=1)
+
+                pygame.draw.arc(screen, "black", ((width // 2) - radius, (height // 2) - radius, radius * 2, radius * 2), 0, math.pi, 2)
+                
+                pygame.display.update()
 
 if __name__ == "__main__":
-    game = soccerSlimeGame()
-    game.init()
+    game = soccerSlimeGame(0, 0)
+    game.renderGraphics()
