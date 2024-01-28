@@ -1,28 +1,6 @@
 import pygame
 import math
 
-class drawRectangle:
-    def __init__(self, screen, colour, x, y, width, height, text, text_colour, fontsize):
-        self.screen = screen
-        self.colour = pygame.Color(colour)
-        self.rect = pygame.Rect(x, y, width, height)
-        self.text = text
-        self.text_colour = pygame.Color(text_colour)
-        self.font = pygame.font.Font("freesansbold.ttf", fontsize)
-        self.visible = True
-
-    def draw(self):
-        if self.visible:
-            pygame.draw.rect(self.screen, self.colour, self.rect, 0)
-
-            if self.text:
-                text_surface = self.font.render(self.text, True, self.text_colour)
-                text_rect = text_surface.get_rect(center=self.rect.center)
-                self.screen.blit(text_surface, text_rect)
-
-    def toggle_visibility(self):
-        self.visible = False
-
 # button1 = drawRectangle(screen, "#0c0182", 15, 100, 130, 40, "1 minute", "white", 18)
 # button2 = drawRectangle(screen, "#0c0182", 175, 100, 130, 40, "2 minutes", "white", 18)
 # button3 = drawRectangle(screen, "#0c0182", ((width - 130) // 2), 100, 130, 40, "3 minutes", "white", 18)
@@ -35,7 +13,33 @@ class soccerSlimeGame():
     def __init__(self, player1Score, player2Score):
         self.player1Score = 0
         self.player2Score = 0
+        self.visible = True
+        
+    @staticmethod
+    def createRect(screen, colour, x, y, width, height, text, text_colour, fontsize, visible):
+        rect = pygame.Rect(x, y, width, height)
+        text_colour = pygame.Color(text_colour)
+        font = pygame.font.Font("freesansbold.ttf", fontsize)
 
+        if visible:
+            pygame.draw.rect(screen, pygame.Color(colour), rect, 0)
+
+            if text:
+                text_surface = font.render(text, True, text_colour)
+                text_rect = text_surface.get_rect(center=rect.center)
+                screen.blit(text_surface, text_rect)
+        return rect            
+   
+                
+    def toggle_visibility(self):
+        self.visible = not self.visible
+    
+    def getP1Score(self, player1Score):
+        return self.player1Score
+    
+    def getP2Score(self, player2Score):
+        return self.player2Score
+    
         
     def renderGraphics(self):
         # Game loop starts here
@@ -52,18 +56,15 @@ class soccerSlimeGame():
                 if event.type == pygame.QUIT:
                     running = False
                     pygame.quit()
-
-                screen.fill("blue")
-            
-                ground = drawRectangle(screen, "#808080", 0, height - 100, 800, 100, " ", "gray", 16)
-                ground.draw()
-
-                radius = 50
+                    
+                # if you need it, call visibility function using self.toggle_visibility() AFTER any sort of event handler
                 
+                screen.fill("blue")
+                rect = self.createRect(screen, "#808080", 0, (height - 100), 800, 100, "slime soccer!!!!1!1!!!!!!!!!", "gray", 16, self.visible)
+                
+
                 #center = (width // 2, height // 2)
                 #pygame.draw.arc(surface, color, rect, start_angle, stop_angle, width=1)
-
-                pygame.draw.arc(screen, "black", ((width // 2) - radius, (height // 2) - radius, radius * 2, radius * 2), 0, math.pi, 2)
                 
                 pygame.display.update()
 
