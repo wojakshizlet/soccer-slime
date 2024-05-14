@@ -9,10 +9,12 @@ import math
 
 
 
-class soccerSlimeGame():
+class soccerSlimeGame:
     def __init__(self, player1Score, player2Score):
         self.player1Score = 0
         self.player2Score = 0
+        self.x = 0
+        self.y = 0
         self.visible = True
         
     @staticmethod
@@ -29,7 +31,6 @@ class soccerSlimeGame():
                 text_rect = text_surface.get_rect(center=rect.center)
                 screen.blit(text_surface, text_rect)
         return rect            
-   
                 
     def toggle_visibility(self):
         self.visible = not self.visible
@@ -57,13 +58,20 @@ class soccerSlimeGame():
                     running = False
                     pygame.quit()
                     
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_LEFT:
+                        player1.x -= 10
+                    elif event.key == pygame.K_RIGHT:
+                        player1.x += 10
+                    
                 # if you need it, call visibility function using self.toggle_visibility() AFTER any sort of event handler
                 
                 screen.fill("blue")
                 rect = self.createRect(screen, "#808080", 0, (height - 100), 800, 100, "slime soccer!!!!1!1!!!!!!!!!", "gray", 16, self.visible)
                 
+                player1 = self.createRect(screen, "white", 0, (height - 110), 80, 10, "", "white", 1, self.visible)
 
-                #center = (width // 2, height // 2)
+                center = (width // 2, height // 2)
                 #pygame.draw.arc(surface, color, rect, start_angle, stop_angle, width=1)
                 
                 pygame.display.update()
