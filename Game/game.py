@@ -2,9 +2,7 @@ import pygame
 import pymunk
 import math
 
-
-
-
+#amogus sussy sus sus sus 
 
 class Player:
     def __init__(self, x, y, width, height, colour, score, screen_width, screen_height, collisionType):
