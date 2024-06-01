@@ -2,11 +2,9 @@ import pygame
 import pymunk
 import math
 
-# button1 = drawRectangle(screen, "#0c0182", 15, 100, 130, 40, "1 minute", "white", 18)
-# button2 = drawRectangle(screen, "#0c0182", 175, 100, 130, 40, "2 minutes", "white", 18)
-# button3 = drawRectangle(screen, "#0c0182", ((width - 130) // 2), 100, 130, 40, "3 minutes", "white", 18)
-# button4 = drawRectangle(screen, "#0c0182", 495, 100, 130, 40, "8 minutes", "white", 18)
-# button5 = drawRectangle(screen, "#0c0182", 655, 100, 130, 40, "Quit", "white", 18)
+
+
+
 
 class Player:
     def __init__(self, x, y, width, height, colour, score, screen_width, screen_height, collisionType):
